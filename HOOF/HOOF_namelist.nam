@@ -1,0 +1,88 @@
+#######################################
+#       HOOF2 1.10 config file        
+#       P. Smerkol - May 2025         
+#######################################
+# ------------ I/O --------------------
+[File extensions to read]
+   {.h5 .hdf}
+[Superobing output quality task name]
+   quality.superob
+# ----------- MESSAGING --------------
+[Log keywords]
+   WarningTag = WARNING
+   ErrorTag = ERROR
+[Print warnings to console]
+   FALSE
+[Print errors to console]
+   TRUE
+[Print warnings to log]
+   TRUE
+[Print timing to console]
+   FALSE
+# ----------- HOMOGENIZATION ----------
+[Radar moment names to save]
+   DBZ = {DBZ DBZH}
+   TH = {}
+   VRAD = {VRAD VRADH}
+[Required DBZ moment quality groups]
+# keywords: ROPO SAT BLOCK TOTAL
+   {TOTAL}
+[Attributes and default values]
+# Default value of 'None' makes attribute required
+   /what/object = None
+   /what/source = None
+   /what/date = None
+   /what/time = None
+   /how/beamwidth = None
+   /where/lat = None
+   /where/lon = None
+   /where/height = None
+   /dataset/what/startdate = None
+   /dataset/what/starttime = None
+   /dataset/what/enddate = None
+   /dataset/what/endtime = None
+   /dataset/where/elangle = None
+   /dataset/where/nrays = None
+   /dataset/where/nbins = None
+   /dataset/where/rscale = None
+   /dataset/where/rstart = None
+   /dataset/how/NI = None
+   /dataset/data/what/quantity = None
+   /dataset/data/what/gain = None
+   /dataset/data/what/offset = None
+   /dataset/data/what/nodata = None
+   /dataset/data/what/undetect = None
+   /dataset/quality/how/task = None
+   /dataset/quality/what/gain = None
+   /dataset/quality/what/offset = None
+# ------------- DEALIASING -------------
+[Dealiasing]
+   FALSE
+[Height sector size in m]
+   100
+[Minimum good points in height sector]
+   500
+[Maximum dealiased wind speed in m/s]
+   60.0
+# ------------- SUPEROBING -------------
+[Superobing]
+   FALSE
+[Range bin factor]
+   10
+[Ray angle factor]
+   1
+[Max arc size in m]
+   10000
+[Quality group to use]
+# keywords: ROPO SAT BLOCK TOTAL
+   TOTAL
+[DBZ min quality]
+   0.7
+[DBZ clear sky threshold]
+   12
+[DBZ min percentage of good points]
+   0.3
+[VRAD min percentage of good points]
+   0.3
+[VRAD max standard deviation]
+   10.0
