@@ -1,2 +1,2 @@
 # AccordPreprocTools
-Gathering various existing observations preprocessing tools and document them.
+Gathering various existing observation preprocessing tools and document them.
