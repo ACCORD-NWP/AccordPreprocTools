@@ -11,10 +11,6 @@
 # The variable can be either refl, wind or comb. The latter is a combinaton of both to be used 
 # in the data assimilation.
 #
-# version 4.1 Buggfix by Mats Dahlbom and Martin Ridal to prevent script crashing if 
-# data lacks DBZH and only contains 1 elevation 
-# version 4.2-5 Buggfix by Mats Dahlbom prevent script to yield files with incomplete scans and misc code cleaning
-#
 import os
 import sys,getopt,string
 import numpy as np
@@ -51,8 +47,6 @@ windlimit           = 60       # Radial winds more than +-windlimit m/s is disre
 windstd             = 5        # Maximum variation within the wind SO (m/s)
 encoding=('utf-8')             # Encoding for p3 compatibility for conditional checks  
 NI_min=30.0                    # Minimum Nyquist velocity that is allowed!
-                               # Switch to allow use of VRAD fields that are  dealiased! 
-dealiasing= True               # Not used at present
 
 
 #------------------------
@@ -232,6 +226,15 @@ def containsDBZH(fid,datasetnr):
         else:
             dbzh_check = 0
     return dbzh_check
+
+
+def empty_file(fid):
+    table = fid['/']
+    total_nr_scans = scan_nr(fid)
+    if (total_nr_scans == 0):
+        return total_nr_scans
+    else:
+        return 1
 
 def corrupted(fid):
     table = fid['/']
@@ -570,6 +573,11 @@ def convert(filename,dummy):
         print("File or parts of file is corrupt and hence will not be processed!") 
         dummy_check = 0
         fid.close()
+    if (dummy_check != 0):
+       fid = h5py.File(filename, mode = "r",libver='earliest')
+       if (empty_file(fid) == 0):
+          print("File does not contain any data and hence will not be processed!") 
+          dummy_check = 0
 
     if (dummy_check == 0):
        print("------------------------------------------")
@@ -725,8 +733,6 @@ def convert(filename,dummy):
 #                  grp.attrs['gain']=alpha_vr
 #                  grp.attrs['offset']=beta_vr
               quantity_name=grp.attrs['quantity']
-#              print('quantity name = ',quantity_name[0:4],float(grp.attrs['gain']))
-#              if ((quantity_name[0:5].decode(encoding) == 'VRADH') and ((float(grp.attrs['gain'])*127.0)>NI_min) and (dealiasing)): 
               # Special treatment of radars with erroneous NI
               if fname == "es":
                   NI = float(grp.attrs['gain'])*127.0
@@ -736,8 +742,6 @@ def convert(filename,dummy):
                   NI = 64.0
               #
               if (quantity_name[0:5].decode(encoding) == 'VRADH'): 
-#             if ((quantity_name[0:5].decode(encoding) == 'VRADH') and ((float(NI))>NI_min)): 
-#             if ((grp.attrs['quantity'] == 'VRAD') and ((float(grp.attrs['gain'])*127.0)>30.0) and (dealiasing)): 
                   vrad_found=1 
 #                  print 'NI=',float(grp.attrs['gain'])*127.0
            if ((dbzh_found==1) and (vrad_found==1)): do_both=True
@@ -883,15 +887,6 @@ if __name__ == "__main__":
 
     print(ffiles)
     print(newroot)
-#   for vfile in glob.glob(fnames):
-#      try:
-#          fid = h5py.File(vfile, mode = "r",libver='earliest')
-##         print("File could be open",vfile)
-#          corrupted(fid)
-#          fid.close()
-#      except:
-#          print("file could not be open",vfile," and hence will be removed!")
-#          os.remove(vfile)
     inumb=1
     TASKS = [(convert, (vfile,0)) for vfile in ffiles]
 #   print TASKS
