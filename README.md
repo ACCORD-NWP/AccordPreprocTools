@@ -1,15 +1,20 @@
 # AccordPreprocTools
 Gathering various existing observation preprocessing tools and document them.
 
-## Listed:
+
+List of tools:
 
 1) HOOF radar preprocessing software
    
 2) prepopera radar preprocessing software
    
-3) White List of GNSS procedure
-   
-## Candidates:
+3) GNSS White List procedure
 
-1) Thinning tool for EMADDC Mode-S EHS
+
+Candidates:
+
+ Thinning tool for EMADDC Mode-S EHS
+
+
+
 ...
