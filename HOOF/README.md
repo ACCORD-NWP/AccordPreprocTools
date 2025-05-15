@@ -2,6 +2,8 @@
 
 Tool for homogenizing Opera HDF5 radar files as preparation for usage in BATOR.
 
+peter.smerkol@gov.si
+
 ### **Usage:**
 
 ```
