@@ -1,4 +1,4 @@
-How to use this package: 
+### How to use this package:
 
 The input would be the odb files and then use mandalay.sql example to get the ascci files from them.
 Example of input then would be data/myview2024020600.rpt 
