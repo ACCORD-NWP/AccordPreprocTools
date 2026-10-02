@@ -796,7 +796,7 @@ def convert(filename,dummy):
             os.remove(pfilename)
     print("finished")
 
-if __name__ == "__main__":
+def main():
     freeze_support()
 
     any_dbzh_found=0
@@ -901,4 +901,8 @@ if __name__ == "__main__":
 # Tell child processes to stop
     for i in range(NUMBER_OF_PROCESSES):
         task_queue.put('STOP')
+
+
+if __name__ == "__main__":
+    main()
 

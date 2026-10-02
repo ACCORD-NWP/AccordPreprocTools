@@ -1,0 +1,35 @@
+[project]
+name = "accordpreproctools"
+version = "0.1.0"
+description = "ACCORD observation preprocessing tools: HOOF (radar homogenization) and Prepopera (OPERA radar preprocessing)."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+  { name = "P. Smerkol", email = "peter.smerkol@gov.si" },
+  { name = "M. Dahlbom" },
+  { name = "M. Ridal" },
+]
+dependencies = [
+  "numpy",
+  "scipy",
+  "h5py",
+]
+
+[project.urls]
+Homepage = "https://github.com/ACCORD-NWP/AccordPreprocTools"
+Repository = "https://github.com/ACCORD-NWP/AccordPreprocTools"
+
+[project.scripts]
+hoof = "HOOF.HOOF:main"
+prepopera = "Prepopera.prepopera_4_6:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+packages = [
+  { include = "HOOF" },
+  { include = "Prepopera" },
+]
