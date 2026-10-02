@@ -1607,8 +1607,8 @@ def handleAnalysisErrors(worker, inHdf, outHdf, logFile, outFilePath):
 # *****************************************************************************************************************************************
 #  main function
 # *****************************************************************************************************************************************
-if __name__=="__main__":
-   
+def main():
+
    # get the command line arguments and parse settings or print the instructions
    if len(sys.argv) == 4:
       configFileName = sys.argv[1]
@@ -1771,3 +1771,7 @@ if __name__=="__main__":
  
    endTime = time.time()
    print("HOOF sucessfully analysed", goodFileCounter, "out of", fileCounter, "files in ", np.round(endTime-startTime, 1), "seconds.")
+
+
+if __name__ == "__main__":
+   main()
