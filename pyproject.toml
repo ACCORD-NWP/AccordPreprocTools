@@ -11,7 +11,7 @@ authors = [
   { name = "M. Ridal" },
 ]
 dependencies = [
-  "numpy>=1.22.4",
+  "numpy",
   "scipy",
   "h5py",
 ]
