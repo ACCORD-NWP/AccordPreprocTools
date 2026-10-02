@@ -21,19 +21,9 @@ Candidates:
 
 ## Python package (HOOF and Prepopera)
 
-HOOF and Prepopera are packaged as `accordpreproctools`, installable with pip:
+HOOF and Prepopera are packaged as `accordpreproctools`, installable with e.g. poetry
 
-```
-pip install git+https://github.com/ACCORD-NWP/AccordPreprocTools.git
-```
-
-or, from a local checkout:
-
-```
-pip install .
-```
-
-This installs two console commands, equivalent to running the original scripts directly:
+The install is equivalent to running the original scripts directly:
 
 ```
 hoof <namelist_file> <input_folder> <output_folder>
