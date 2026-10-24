@@ -1,0 +1,23 @@
+[paths]
+base_dir = "/home/bstrajnar/assim_tools/AccordPreprocTools/GNSS_WhiteList/Option1_python_revised"
+odb_dir  = "extracted_odb_data"
+st_dir   = "station_data"
+metadata = "unique_list.txt"
+
+[files]
+odb_extract_prefix = "ecma_"
+stats = "stats"
+whitelist = "whitelist"
+
+[processing]
+run_odb_extraction = false   # ? set true only when needed
+max_parallel = 8
+station_prefix_len = 4
+
+[qc]
+invalid_std = 99999
+
+[spatial_filter]
+enable = true
+min_distance_km = 15.0
+
