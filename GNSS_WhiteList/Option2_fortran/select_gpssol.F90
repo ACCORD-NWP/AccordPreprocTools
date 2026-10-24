@@ -1044,7 +1044,7 @@ SUBROUTINE SELECT_GPSSOL_STATIONS(stat_cen,error_flag)
   integer(KIND=JPIM), dimension(0:15) :: i_id
   integer(KIND=JPIM) :: istat_cen, icount, jstat_cen, ipbs, npbs, &
                      stats_pbs(1:nstat_cen_max), idt, dt1, &
-                     counts(13), icen
+                     counts(13), icen, i, j
   real(KIND=JPRB) :: stdevmin, diffmin, mean_stdevmin, &
                      dist1, pi=3.14159265358979323846264338328, &
                      deg2rad, rad2deg, &
@@ -1275,10 +1275,26 @@ SUBROUTINE SELECT_GPSSOL_STATIONS(stat_cen,error_flag)
   ENDDO
 
   ! remove stations which are present more than once from the list
-  DO ipbs=1,npbs*2
-     i_id(0)=COUNT(stats_pbs .eq. stats_pbs(ipbs))
-     IF (i_id(0) .gt. 1) &
-     stat_cen(stats_pbs(ipbs))%ok=.FALSE.
+  !DO ipbs=1,npbs*2
+  !   i_id(0)=COUNT(stats_pbs .eq. stats_pbs(ipbs))
+  !   IF (i_id(0) .gt. 1) &
+  !   stat_cen(stats_pbs(ipbs))%ok=.FALSE.
+  !ENDDO
+! The program examines the pairs of stations, and
+!if they are close to each other, it discards both, which can be an error. (Helga Toth)
+  DO ipbs=1,npbs
+     i = stats_pbs(2*ipbs-1)
+     j = stats_pbs(2*ipbs)
+
+   IF (stat_cen(i)%ok .and. stat_cen(j)%ok) THEN
+      !stat_cen(j)%ok = .FALSE.
+      IF (stat_cen(i)%statistics%stdev <= stat_cen(j)%statistics%stdev) THEN
+         stat_cen(j)%ok = .FALSE.
+      ELSE
+         stat_cen(i)%ok = .FALSE.
+      ENDIF
+
+   ENDIF
   ENDDO
 
   call PRINT_STATISTICS(stat_cen,'stats_3.txt'//trim(ficoutput_ext), &
